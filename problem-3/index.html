@@ -1,0 +1,83 @@
+<html>
+
+<body>
+    <h2>Fridge Items</h2>
+    <table>
+        <thead>
+            <td>
+                <b>Item</b>
+            </td>
+            <td>
+                <b>Count</b>
+            </td>
+            <td>
+                <b>Remove</b>
+            </td>
+        </thead>
+        <tbody id="table-body">
+            <tr>
+                <td>Cucumber</td>
+                <td>3</td>
+                <td><button onClick="remove(event)" id="remove_btn">X</button></td>
+            </tr>
+            <tr>
+                <td>Lettuce</td>
+                <td>5</td>
+                <td><button onClick="remove(event)" id="remove_btn">X</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <input type="text" id="field">
+    <button onclick="add()">Add</button>
+</body>
+
+
+<script>
+    function remove(event) {
+        let btns = document.querySelectorAll("#remove_btn");
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].onclick = function() {
+                this.parentNode.parentNode.classList.toggle("hide");
+            }
+        }
+    }
+
+    function add() {
+        let table = document.getElementById('table-body');
+        let txt_field = document.getElementById('field');
+        let input_txt = txt_field.value.split(' ');
+
+        let item = input_txt[0];
+        let count = parseInt(input_txt[1]);
+
+        if (txt_field.value.indexOf(" ") > 0) {
+            if (typeof(item) == 'string' && typeof(count) == 'number') {
+                table.innerHTML += `
+                <tr>
+                    <td>${input_txt[0]}</td>
+                    <td>${input_txt[1]}</td>
+                    <td><button onClick="remove(event)" id="remove_btn">X</button></td>
+                </tr>
+                `;
+                txt_field.value = '';
+            }
+        } else {
+            alert("Error in input not valid !!!");
+            txt_field.value = '';
+        }
+    }
+</script>
+
+
+<style>
+    td {
+        padding-right: 50px;
+    }
+    
+    .hide {
+        display: none;
+    }
+</style>
+
+</html>
